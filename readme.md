@@ -1,3 +1,12 @@
+# FIT3162-MCS5-2023
+
+Welcome to the FIT3162-MCS5-2023 repository. This repository contains the code for the FIT3162-MCS5-2023 project. The project is based on the paper "Improving Attacks on Round-Reduced Speck32/64 Using Deep Learning" by Aron Gohhr et al.
+
+However, this code has now been modified to show a comparative analysis of the performance of the neural network based distinguisher and the DDT based distinguisher. 
+The code has also been modified to show the performance of the neural network based distinguisher on the 9-round attack.
+
+From this point, all the content below this line is the original README.md file from the deep_speck repository in Aron Gohr's repository
+
 # A) Summary
 
 This repository holds supplementary code and data to the paper "Improving Attacks on Round-Reduced Speck32/64 Using Deep Learning". In particular, it contains:

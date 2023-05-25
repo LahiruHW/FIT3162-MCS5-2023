@@ -156,54 +156,23 @@ def make_speck_train_data(n, nr, diff=(0x0040, 0)):
     print("\n-------------------------------- generating data for SPECK\n\n")
     Y = np.frombuffer(urandom(n), dtype=np.uint8)
     Y = Y & 1
-    print("Y:", Y)
-    print("Y.shape:", Y.shape, "\n")
-
     keys = np.frombuffer(urandom(8*n), dtype=np.uint16).reshape(4, -1)
-    print("keys:", keys, '\n')
-
     num_rand_samples = np.sum(Y == 0)
-    print("num_rand_samples:", num_rand_samples, '\n')
-
     plain0l = np.frombuffer(urandom(2*n), dtype=np.uint16)
-    print("plain0l:", plain0l)
-    print("plain0l.shape:", plain0l.shape, "\n")
-
     plain0r = np.frombuffer(urandom(2*n), dtype=np.uint16)
-    print("plain0r:", plain0r)
-    print("plain0r.shape:", plain0r.shape, "\n")
-
     plain1l = plain0l ^ diff[0]
     plain1l[Y == 0] = np.frombuffer(
         urandom(2*num_rand_samples), dtype=np.uint16
     )
-    print("plain1l:", plain1l)
-    print("plain1l.shape:", plain1l.shape, "\n")
-    
     plain1r = plain0r ^ diff[1]
     plain1r[Y == 0] = np.frombuffer(
         urandom(2*num_rand_samples), dtype=np.uint16
     )
-    print("plain1r:", plain1r)
-    print("plain1r.shape:", plain1r.shape, "\n")
-    
     ks = expand_key(keys, nr) # nr = 5, 6, 7, 8
     print("ks:", ks, '\n')
-    
-    ctdata0l, ctdata0r = encrypt((plain0l, plain0r), ks)     ##########################################################
-    print("ctdata0l:", ctdata0l, "\n" , "ctdata0l.shape:", ctdata0l.shape, "\n")
-    print("ctdata0r:", ctdata0r, "\n" , "ctdata0r.shape:", ctdata0r.shape, "\n")
-    
+    ctdata0l, ctdata0r = encrypt((plain0l, plain0r), ks)
     ctdata1l, ctdata1r = encrypt((plain1l, plain1r), ks)
-    print("ctdata1l:", ctdata1l)
-    print("ctdata1l.shape:", ctdata1l.shape, "\n")
-    print("ctdata1r:", ctdata1r)
-    print("ctdata1r.shape:", ctdata1r.shape, "\n")
-    
     X = convert_to_binary([ctdata0l, ctdata0r, ctdata1l, ctdata1r])
-    print("X:", X, '\n')
-    print("X.shape:", X.shape, "\n")
-
     return (X, Y)
 
 # real differences data generator
